@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yes ❤️</title>
+
+<style>
+body {
+  background: #0b1220;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+
+.box {
+  background: white;
+  color: black;
+  padding: 36px;
+  border-radius: 18px;
+  text-align: center;
+  z-index: 2;
+  animation: popIn 0.6s ease-out;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.bears {
+  font-size: 64px;
+  margin-bottom: 10px;
+  animation: hug 1.2s infinite;
+}
+
+@keyframes hug {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: floatUp 3s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-120vh) scale(1.6);
+    opacity: 0;
+  }
+}
+
+button {
+  margin-top: 22px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 12px;
+  background: #22c55e;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 0 rgba(34,197,94,0.6); }
+  50% { box-shadow: 0 0 18px rgba(34,197,94,0.8); }
+  100% { box-shadow: 0 0 0 rgba(34,197,94,0.6); }
+}
+
+.confetti {
+  position: fixed;
+  top: -10px;
+  width: 6px;
+  height: 6px;
+  animation: fall 3s linear infinite;
+  z-index: 1;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Soft chime sound -->
+<audio id="chime" src="chime.mp3" preload="auto"></audio>
+
+<div class="box">
+  <div class="bears">🐻💞🐻</div>
+  <h1>Мэдэж байсан ❤️</h1>
+  <p>Чи миний Валентин боллоо</p>
+
+  <button onclick="location.href='video.html?play=1'">
+    Press to watch for my сэтгэлийн үг
+  </button>
+</div>
+
+<script>
+/* ---- Play soft chime on load ---- */
+const chime = document.getElementById("chime");
+chime.volume = 0.3;
+
+// play as soon as page appears (safe: user already interacted)
+chime.play().catch(() => {});
+
+/* ---- Confetti ---- */
+for (let i = 0; i < 160; i++) {
+  const c = document.createElement("div");
+  c.className = "confetti";
+  c.style.left = Math.random() * 100 + "vw";
+  c.style.background =
+    `hsl(${Math.random() * 360},100%,50%)`;
+  c.style.animationDuration =
+    2 + Math.random() * 2 + "s";
+  document.body.appendChild(c);
+}
+
+/* ---- Heart burst from bears ---- */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = "❤️";
+  heart.style.left = 45 + Math.random() * 10 + "vw";
+  heart.style.bottom = "40vh";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 3000);
+}, 500);
+</script>
+
+</body>
+</html>

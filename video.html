@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>For You ❤️</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  background: black;
+}
+</style>
+</head>
+
+<body>
+
+<video id="loveVideo"
+       controls
+       playsinline
+       webkit-playsinline
+       preload="auto">
+  <source src="video.mp4" type="video/mp4">
+</video>
+
+<script>
+const video = document.getElementById("loveVideo");
+const params = new URLSearchParams(window.location.search);
+
+// Try autoplay if user came from button
+if (params.get("play")) {
+  video.play().catch(() => {});
+}
+
+// Force fullscreen + play on first tap
+document.body.addEventListener("click", () => {
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.webkitEnterFullscreen) {
+    video.webkitEnterFullscreen(); // iOS Safari
+  }
+  video.play();
+}, { once: true });
+</script>
+
+</body>
+</html>
